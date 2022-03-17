@@ -5,9 +5,14 @@
 /* Date     : 03/15/2022        */
 /* Modified : 03/17/2022        */
 /* ---------------------------- */
+/* Color variables */
+:root{
+    --blue-color: rgb(32, 117, 195);
+    --black-color: rgb(0, 0, 0);
+}
 /* Style title */
 .title{
-    background: linear-gradient(to left, rgb(18, 18, 95), rgb(32, 117, 195));
+    background: linear-gradient(to left, rgb(18, 18, 95), var(--blue-color));
 }
 /* Style forecast squares */
 .forecast{
@@ -17,50 +22,50 @@
 }
 /* Style search button */
 .searchBtn{
-    background-color: rgb(32, 117, 195);
-    box-shadow: 5px 5px 9px black;
+    background-color: var(--blue-color);
+    box-shadow: 5px 5px 9px var(--black-color);
 }
 /* Style search button when mouse over */
 .searchBtn:hover {
     background-color: rgb(8, 99, 185);
-    box-shadow: 3px 3px 5px black;
+    box-shadow: 3px 3px 5px var(--black-color);
     top: -2px;
 }
 /* Style search button when active */
 .searchBtn:active {
-    box-shadow: 1px 1px black;
+    box-shadow: 1px 1px var(--black-color);
     top: 0;
 }
 /* Style city buttons */
 .cityBtn{
     background-color: rgb(175, 175, 175);
-    box-shadow: 3px 3px 5px black;
+    box-shadow: 3px 3px 5px var(--black-color);
 }
 /* Style city buttons when mouse over */
 .cityBtn:hover {
     background-color: rgb(158, 157, 157);
-    box-shadow: 2px 2px 4px black;
+    box-shadow: 2px 2px 4px var(--black-color);
     top: -2px;
 }
 /* Style city buttons when active */
 .cityBtn:active {
-    box-shadow: 1px 1px black;
+    box-shadow: 1px 1px var(--black-color);
     top: 0;
 }
 /* Style delete button */
 .deleteBtn{
     background-color: rgb(209, 119, 119);
-    box-shadow: 3px 3px 5px black;
+    box-shadow: 3px 3px 5px var(--black-color);
 }
 /* Style delete button when mouse over */
 .deleteBtn:hover {
     background-color: rgb(218, 47, 47);
-    box-shadow: 2px 2px 4px black;
+    box-shadow: 2px 2px 4px var(--black-color);
     top: -2px;
 }
 /* Style delete button when active */
 .deleteBtn:active {
-    box-shadow: 1px 1px black;
+    box-shadow: 1px 1px var(--black-color);
     top: 0;
 }
 /* Style low UV risk */

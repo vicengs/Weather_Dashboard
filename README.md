@@ -1,3 +1,59 @@
+# Weather Dashboard
+
+## Purpose
+A weather dashboard that will search by city wheather and save history search.
+
+## Built with
+* HTML
+* CSS (Advanced)
+* Framework CSS
+* Java Script
+* jQuery
+* Third-Party API's
+
+## Website
+https://vicengs.github.io/Weather_Dashboard/
+
+## Contribution
+Made by Vicente Garcia Sepulveda
+
+
+# Description
+
+Application made from scratch
+
+* Functionality using functions in JavaScript
+* API's to generate dinamic HTML (jQuery)
+* Third-Party API's to get weather information
+* Generate dinamic elements
+* Style with Bootstrap
+* Performance using variables and functions
+* Comments of the code
+
+
+# Instructions (Solved)
+## SSH to clone:
+```
+git@github.com:vicengs/Weather_Dashboard.git
+```
+## GitHub repository:
+```
+https://github.com/vicengs/Weather_Dashboard
+```
+## Live URL:
+```
+https://vicengs.github.io/Weather_Dashboard/
+```
+## Screenshoot
+
+![image text](https://github.com/vicengs/Weather_Dashboard/blob/main/assets/images/Screenshot_Weather_Dashboard.jpg)
+
+
+
+----
+
+
+
 # 06 Server-Side APIs: Weather Dashboard
 
 Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
