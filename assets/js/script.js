@@ -88,7 +88,7 @@ var displayWeather = function(weatherData){
         if (response.ok) {
             response.json().then(function(data) {
                 // Create elements in the current weather section
-                currentInfoEl.append("<h3 class=''><strong>" + weatherData.name + " (" + weatherData.sys.country + ") - (" + currentDate + ") <img class='' src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' width='60px'></strong></h3>");
+                currentInfoEl.append("<h3 class=''><strong>" + weatherData.name + " (" + weatherData.sys.country + ") - (" + currentDate + ") <img class='' src='https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' width='60px'></strong></h3>");
                 currentInfoEl.append("<p><strong>Temp: </strong>" + data.current.temp + " °F</p>");
                 currentInfoEl.append("<p><strong>Wind: </strong>" + data.current.wind_speed + " MPH</p>");
                 currentInfoEl.append("<p><strong>Humidity: </strong>" + data.current.humidity + " %</p>");
@@ -116,7 +116,7 @@ var displayWeather = function(weatherData){
                     var strDay = ".day"+(i+1);
                     $(strDay).empty();
                     $(strDay).append("<h5>"+ moment().add(i+1,"d").format("L") +"</h5>");
-                    $(strDay).append("<img class='' src='http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png' width='60px'>");
+                    $(strDay).append("<img class='' src='https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png' width='60px'>");
                     $(strDay).append("<p>Temp: " + data.daily[i].temp.day + " °F</p>");
                     $(strDay).append("<p>Wind: " + data.daily[i].wind_speed + " MPH</p>");
                     $(strDay).append("<p>Humidity: " + data.daily[i].humidity + " %</p>");
