@@ -17,8 +17,7 @@
 /* Style forecast squares */
 .forecast{
     background-color: rgba(5, 5, 77, 0.9);
-    width: 20%;
-    height: 215px;
+    width: 19%;
 }
 /* Style search button */
 .searchBtn{
