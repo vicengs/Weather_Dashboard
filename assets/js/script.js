@@ -7,7 +7,10 @@
 /* ---------------------------- */
 // Declare jQuery (DOM) to current info section
 var currentInfoEl = $(".currentInfo");
+// Declare jQuery (DOM) to forecast info section
 var forecastEl = $(".weatherForecast");
+// Declare jQuery to city buttons elements (DOM's)
+var cityButtons = $(".cityButtons");
 // Declare cities array
 var cities = [];
 // Function to load (if exists) cities form local storage 
@@ -26,7 +29,7 @@ var loadCities = function(){
 };
 // Function to save a new search city
 var saveCity = function(newCity){
-    // Add new city searched to array
+    // If parameter has value (city) add new city searched to array
     if (newCity){
         cities.push(newCity);
     };
@@ -40,23 +43,26 @@ var searchCityBtn = function(){
 };
 // Function to clear search history
 var clearSearchHistory = function(){
+    // Initialize array to null
     cities = [];
+    // Call function to save the null array in the local storage
     saveCity();
-    createButton();
+    // Clear city buttons section
+    cityButtons.empty();
 };
 // Function to create a new city button
 var createButton = function(createCity){
-    // Declare variable to city buttons elements (DOM's)
-    var cityButtons = $(".cityButtons");
     // Declare variable with city name (received in parameter) replacing spaces with middle slash
     var idCity = createCity.replace(/ /g,"-");
     // Add to HTML by jQuery button with style classes and id to identify when clicked
     cityButtons.append("<button id='" + idCity + "' class='rounded-3 mb-2 btn cityBtn'>"+ createCity +"</button>");
     // Add listener to new (or load) button to response on click
     $("#"+idCity).click(searchCityBtn);
-    //
+    // Remove clear search button if it exists
     $("#delete").remove();
+    // Create at the end the clear search button
     cityButtons.append("<button id='delete' class='rounded-3 mb-2 btn deleteBtn text-white'>Clear Search History</button>");
+    // Add listener to clear search button to response on click calling function to clear search history
     $("#delete").click(clearSearchHistory);
     //
     // Return city id (only works for new valid searches)
@@ -82,10 +88,10 @@ var displayWeather = function(weatherData){
         if (response.ok) {
             response.json().then(function(data) {
                 // Create elements in the current weather section
-                currentInfoEl.append("<h3 class=''><strong>" + weatherData.name + " (" + weatherData.sys.country + ") - (" + currentDate + ") <img class='' src='http://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png' width='60px'></strong></h3>");
-                currentInfoEl.append("<p><strong>Temp: </strong>" + weatherData.main.temp + " °F</p>");
-                currentInfoEl.append("<p><strong>Wind: </strong>" + weatherData.wind.speed + " MPH</p>");
-                currentInfoEl.append("<p><strong>Humidity: </strong>" + weatherData.main.humidity + " %</p>");
+                currentInfoEl.append("<h3 class=''><strong>" + weatherData.name + " (" + weatherData.sys.country + ") - (" + currentDate + ") <img class='' src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png' width='60px'></strong></h3>");
+                currentInfoEl.append("<p><strong>Temp: </strong>" + data.current.temp + " °F</p>");
+                currentInfoEl.append("<p><strong>Wind: </strong>" + data.current.wind_speed + " MPH</p>");
+                currentInfoEl.append("<p><strong>Humidity: </strong>" + data.current.humidity + " %</p>");
                 // Declare variable to define class color depending the UV Index level
                 var uvRisk = "text-white ";
                 // Declare variable to get absolute value of UV Index and validaters to define a level risk (color)
