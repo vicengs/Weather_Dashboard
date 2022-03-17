@@ -131,7 +131,7 @@ var displayWeather = function(weatherData){
 // Function to search weather
 var searchWeather = function(displayCity){
     // Declare main API to search by city (parameter sent by city button or search button)
-    var mainApiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + displayCity + "&units=imperial&appid=1c8fa169aaefe22459f73ed7e1b2792b";
+    var mainApiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + displayCity + "&units=imperial&appid=1c8fa169aaefe22459f73ed7e1b2792b";
     // Variable to define if the button exists or not to save it in the search history
     var save = true;
     $(".weatherInfo").removeClass("d-none");
