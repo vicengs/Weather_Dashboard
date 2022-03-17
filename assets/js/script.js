@@ -5,10 +5,10 @@
 /* Date     : 03/15/2022        */
 /* Modified : 03/17/2022        */
 /* ---------------------------- */
-// Declares jQuery (DOM) to current info section
+// Declare jQuery (DOM) to current info section
 var currentInfoEl = $(".currentInfo");
 var forecastEl = $(".weatherForecast");
-// Declares cities array
+// Declare cities array
 var cities = [];
 // Function to load (if exists) cities form local storage 
 var loadCities = function(){
@@ -26,8 +26,10 @@ var loadCities = function(){
 };
 // Function to save a new search city
 var saveCity = function(newCity){
-    // Add new city searchedn to array
-    cities.push(newCity);
+    // Add new city searched to array
+    if (newCity){
+        cities.push(newCity);
+    };
     // Add to local storage array (plus 1 city)
     localStorage.setItem("searchCities", JSON.stringify(cities));
 };
@@ -36,14 +38,27 @@ var searchCityBtn = function(){
     // Call to function that search and display weather of a city
     searchWeather(this.textContent);
 };
+// Function to clear search history
+var clearSearchHistory = function(){
+    cities = [];
+    saveCity();
+    createButton();
+};
 // Function to create a new city button
 var createButton = function(createCity){
-    // Declares variable with city name (received in parameter) replacing spaces with middle slash
+    // Declare variable to city buttons elements (DOM's)
+    var cityButtons = $(".cityButtons");
+    // Declare variable with city name (received in parameter) replacing spaces with middle slash
     var idCity = createCity.replace(/ /g,"-");
     // Add to HTML by jQuery button with style classes and id to identify when clicked
-    $(".cityButtons").append("<button id='" + idCity + "' class='rounded-3 mb-2 btn cityBtn'>"+ createCity +"</button>");
+    cityButtons.append("<button id='" + idCity + "' class='rounded-3 mb-2 btn cityBtn'>"+ createCity +"</button>");
     // Add listener to new (or load) button to response on click
     $("#"+idCity).click(searchCityBtn);
+    //
+    $("#delete").remove();
+    cityButtons.append("<button id='delete' class='rounded-3 mb-2 btn deleteBtn text-white'>Clear Search History</button>");
+    $("#delete").click(clearSearchHistory);
+    //
     // Return city id (only works for new valid searches)
     return createCity;
 };
@@ -59,7 +74,7 @@ var displayWeather = function(weatherData){
     var currentDate = moment().format("L");
     // Clear section for new wheater city info
     currentInfoEl.empty();
-    // Declares new API to get UV index value
+    // Declare new API to get UV index value
     var uviApiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + weatherData.coord.lat + "&lon=" + weatherData.coord.lon + "&units=imperial&exclude=minutely,hourly,alerts&appid=1c8fa169aaefe22459f73ed7e1b2792b";
     // Call to API
     fetch(uviApiUrl).then(function(response) {
@@ -71,9 +86,9 @@ var displayWeather = function(weatherData){
                 currentInfoEl.append("<p><strong>Temp: </strong>" + weatherData.main.temp + " °F</p>");
                 currentInfoEl.append("<p><strong>Wind: </strong>" + weatherData.wind.speed + " MPH</p>");
                 currentInfoEl.append("<p><strong>Humidity: </strong>" + weatherData.main.humidity + " %</p>");
-                // Declares variable to define class color depending the UV Index level
+                // Declare variable to define class color depending the UV Index level
                 var uvRisk = "text-white ";
-                // Declares variable to get absolute value of UV Index and validaters to define a level risk (color)
+                // Declare variable to get absolute value of UV Index and validaters to define a level risk (color)
                 var uvAbs = Math.abs(data.current.uvi);
                 // Validation of UV Index level risk
                 if (uvAbs < 3){
@@ -109,7 +124,7 @@ var displayWeather = function(weatherData){
 };
 // Function to search weather
 var searchWeather = function(displayCity){
-    // Declares main API to search by city (parameter sent by city button or search button)
+    // Declare main API to search by city (parameter sent by city button or search button)
     var mainApiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + displayCity + "&units=imperial&appid=1c8fa169aaefe22459f73ed7e1b2792b";
     // Variable to define if the button exists or not to save it in the search history
     var save = true;
@@ -144,9 +159,9 @@ var searchWeather = function(displayCity){
 var searchCity = function(event){
     // Prevent to reload page because form
     event.preventDefault();
-    // Declares variable for search field DOM
+    // Declare variable for search field DOM
     var cityInputEl = document.querySelector("#city");
-    // Declares variable with a value of city typed converted to lower case without spaces 
+    // Declare variable with a value of city typed converted to lower case without spaces 
     var city = cityInputEl.value.toLowerCase().trim();
     // If city is typed clear field (for new searches) and call function to search weather to that city
     if (city){
