@@ -3,34 +3,65 @@
 /* File     : style.css         */
 /* Author   : Vicente Garcia    */
 /* Date     : 03/15/2022        */
-/* Modified : 03/15/2022        */
+/* Modified : 03/16/2022        */
 /* ---------------------------- */
+/* Style title */
 .title{
     background: linear-gradient(to left, rgb(18, 18, 95), rgb(32, 117, 195));
 }
+/* Style forecast squares */
 .forecast{
     background-color: rgba(5, 5, 77, 0.9);
     width: 20%;
     height: 215px;
 }
+/* Style search button */
 .searchBtn{
     background-color: rgb(32, 117, 195);
+    box-shadow: 5px 5px 9px black;
 }
+/* Style buttons when mouse over */
+.searchBtn:hover {
+    box-shadow: 3px 3px 5px black;
+    top: -2px;
+}
+/* Style buttons when active */
+.searchBtn:active {
+    box-shadow: 1px 1px black;
+    top: 0;
+}
+/* Style city buttons */
 .cityBtn{
     background-color: rgb(175, 175, 175);
+    box-shadow: 3px 3px 5px black;
 }
+/* Style buttons when mouse over */
+.cityBtn:hover {
+    box-shadow: 2px 2px 4px black;
+    top: -2px;
+}
+/* Style buttons when active */
+.cityBtn:active {
+    box-shadow: 1px 1px black;
+    top: 0;
+}
+/* Style low UV risk */
 .uvLow{
     background-color: rgb(2, 141, 2);
 }
+/* Style moderate UV risk */
 .uvModerate{
     background-color: rgb(255, 255, 0);
 }
+/* Style high UV risk */
 .uvHigh{
     background-color: rgb(248, 167, 17);
 }
+/* Style very high UV risk */
 .uvVeryHigh{
     background-color: rgb(240, 20, 20);
 }
+/* Style extreme UV risk */
 .uvExtreme{
     background-color: rgb(112, 35, 156);
 }
