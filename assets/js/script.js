@@ -3,8 +3,9 @@
 /* File     : script.js         */
 /* Author   : Vicente Garcia    */
 /* Date     : 03/15/2022        */
-/* Modified : 03/15/2022        */
+/* Modified : 03/16/2022        */
 /* ---------------------------- */
+var currentInfoEl = $(".currentInfo");
 var cities = [];
 var loadCities = function(){
     cities = JSON.parse(localStorage.getItem('searchCities'));
@@ -26,7 +27,7 @@ var searchCityBtn = function(){
 };
 var createButton = function(createCity){
     //var arrCityButton = createCity.split(' ');
-    var idCity = createCity.replace(" ","-");
+    var idCity = createCity.replace(/ /g,"-");
     /*for (var i = 0; i < arrCityButton.length; i++) {
         arrCityButton[i] = arrCityButton[i].charAt(0).toUpperCase() + arrCityButton[i].substring(1);
     };
@@ -37,21 +38,47 @@ var createButton = function(createCity){
 };
 var displayWeather = function(weatherData){
     var currentDate = moment().format("L");
-    var currentInfoEl = $(".currentInfo");
     currentInfoEl.empty();
-    //console.log("Lat: "+data.coord.lat);
-    //console.log("Lon: "+data.coord.lon);
-    //console.log("Icon: "+data.weather.icon);
-    //console.log(data);
-    currentInfoEl.append("<h3 class='mb-3'>" + weatherData.name + " (" + currentDate + ") icon</h3>");
-    currentInfoEl.append("<p>Temp: " + weatherData.main.temp + " °F</p>");
-    currentInfoEl.append("<p>Wind: " + weatherData.wind.speed + " MPH</p>");
-    currentInfoEl.append("<p>Humidity: " + weatherData.main.humidity + " %</p>");
-    currentInfoEl.append("<p>UV Index: " +  + "</p>");
+    var uviApiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + weatherData.coord.lat + "&lon=" + weatherData.coord.lon + "&units=imperial&exclude=minutely,hourly,alerts&appid=1c8fa169aaefe22459f73ed7e1b2792b";
+    fetch(uviApiUrl).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                currentInfoEl.append("<h3 class=''><strong>" + weatherData.name + " (" + weatherData.sys.country + ") - (" + currentDate + ") <img class='' src='http://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png' width='60px'></strong></h3>");
+                currentInfoEl.append("<p><strong>Temp: </strong>" + weatherData.main.temp + " °F</p>");
+                currentInfoEl.append("<p><strong>Wind: </strong>" + weatherData.wind.speed + " MPH</p>");
+                currentInfoEl.append("<p><strong>Humidity: </strong>" + weatherData.main.humidity + " %</p>");
+                var uvRisk = "text-white ";
+                var uvAbs = Math.abs(data.current.uvi);
+                if (uvAbs < 3){
+                    uvRisk = uvRisk + "uvLow";
+                }else if (uvAbs > 2 && data.current.uvi < 6){
+                    uvRisk = "uvModerate";
+                }else if (uvAbs > 5 && data.current.uvi < 8){
+                    uvRisk = uvRisk + "uvHigh";
+                }else if (uvAbs > 7 && data.current.uvi < 11){
+                    uvRisk = uvRisk + "uvVeryHigh";
+                }else if (uvAbs > 10){
+                    uvRisk = uvRisk + "uvExtreme";
+                }
+                currentInfoEl.append("<p><strong>UV Index: </strong><span class='" + uvRisk + " px-3 py-1 rounded'>" + data.current.uvi + "</span></p>");
+                for (i=0; i<5; i++){
+                    var strDay = ".day"+(i+1);
+                    $(strDay).empty();
+                    $(strDay).append("<h5>"+ moment().add(i+1,"d").format("L") +"</h5>");
+                    $(strDay).append("<img class='' src='http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png' width='60px'>");
+                    $(strDay).append("<p>Temp: " + data.daily[i].temp.day + " °F</p>");
+                    $(strDay).append("<p>Wind: " + data.daily[i].wind_speed + " MPH</p>");
+                    $(strDay).append("<p>Humidity: " + data.daily[i].humidity + " %</p>");
+                };
+            });
+        }else{
+            currentInfoEl.empty();
+            currentInfoEl.append("<h1>THE CITY DOESN'T EXIST!</h1>");
+        };
+    });
 };
 var searchWeather = function(displayCity){
-    //var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=30.26715&lon=-97.74306&appid=1c8fa169aaefe22459f73ed7e1b2792b";
-    var mainApiUrl = "http://api.openweathermap.org/data/2.5/weather?q="+displayCity+"&appid=1c8fa169aaefe22459f73ed7e1b2792b";
+    var mainApiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + displayCity + "&units=imperial&appid=1c8fa169aaefe22459f73ed7e1b2792b";
     var save = true;
     fetch(mainApiUrl).then(function(response) {
         if (response.ok) {
@@ -59,7 +86,7 @@ var searchWeather = function(displayCity){
             response.json().then(function(data) {
                 displayWeather(data);
                 for (var i=0; i<cities.length; i++){
-                    if (displayCity.toUpperCase().trim() === cities[i].toUpperCase().trim()){
+                    if (data.name.toUpperCase().trim() === cities[i].toUpperCase().trim()){
                         save = false
                     };
                 };
@@ -68,7 +95,13 @@ var searchWeather = function(displayCity){
                 };
             });
         }else{
-            console.log('Error: Weather Not Found');
+            currentInfoEl.empty();
+            currentInfoEl.append("<h1>THE CITY DOESN'T EXIST!</h1>");
+            $(".day1").empty();
+            $(".day2").empty();
+            $(".day3").empty();
+            $(".day4").empty();
+            $(".day5").empty();
         };
     });
 };

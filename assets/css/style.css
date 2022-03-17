@@ -1,14 +1,36 @@
+/* ---------------------------- */
+/* Project  : Weather Dashboard */
+/* File     : style.css         */
+/* Author   : Vicente Garcia    */
+/* Date     : 03/15/2022        */
+/* Modified : 03/15/2022        */
+/* ---------------------------- */
 .title{
     background: linear-gradient(to left, rgb(18, 18, 95), rgb(32, 117, 195));
 }
 .forecast{
     background-color: rgba(5, 5, 77, 0.9);
     width: 20%;
-    height: 200px;
+    height: 215px;
 }
 .searchBtn{
     background-color: rgb(32, 117, 195);
 }
 .cityBtn{
     background-color: rgb(175, 175, 175);
+}
+.uvLow{
+    background-color: rgb(2, 141, 2);
+}
+.uvModerate{
+    background-color: rgb(255, 255, 0);
+}
+.uvHigh{
+    background-color: rgb(248, 167, 17);
+}
+.uvVeryHigh{
+    background-color: rgb(240, 20, 20);
+}
+.uvExtreme{
+    background-color: rgb(112, 35, 156);
 }
