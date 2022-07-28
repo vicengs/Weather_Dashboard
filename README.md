@@ -1,7 +1,7 @@
 # Weather Dashboard
 
 ## Purpose
-A weather dashboard that will search by city wheather and save history search.
+A weather dashboard that will search by city weather and save history search.
 
 ## Built with
 * HTML
